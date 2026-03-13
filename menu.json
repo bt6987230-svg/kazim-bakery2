@@ -1,0 +1,18 @@
+[
+{
+"name":"Chocolate Cake",
+"price":500
+},
+{
+"name":"Cream Pastry",
+"price":80
+},
+{
+"name":"Cupcake",
+"price":60
+},
+{
+"name":"Cookies",
+"price":120
+}
+]
