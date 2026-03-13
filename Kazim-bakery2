@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kazim' Bakery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>Kazim' Bakery</h1>
+<nav>
+<a href="#menu">Menu</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<section class="hero">
+<h2>Premium Bakery Delivered To Your Door</h2>
+<p>Fresh cakes, pastries and bakery items with best hygiene</p>
+<button onclick="scrollToMenu()">Order Now</button>
+</section>
+
+<section id="menu">
+<h2>Our Menu</h2>
+<div class="menu-container" id="menu-container"></div>
+</section>
+
+<section id="cart">
+<h2>Your Order</h2>
+<ul id="cart-items"></ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="placeOrder()">Place Order</button>
+</section>
+
+<section id="about">
+<h2>Why Choose Us</h2>
+<div class="features">
+<div>⭐ Premium Quality</div>
+<div>🧼 Best Hygiene</div>
+<div>⚡ Fast Delivery</div>
+<div>💰 Affordable Prices</div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p>📞 9906627998</p>
+<p>📧 meerkazim42@gmail.com</p>
+<a href="https://www.instagram.com/miirkazim?igsh=ZnJmNzg4ajZxbGps">Instagram</a>
+</section>
+
+<footer>
+<p>© 2026 Kazim' Bakery</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+body{
+font-family: Arial;
+margin:0;
+background:#fff7f0;
+}
+header{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:#ff7a18;
+color:white;
+}
+nav a{
+margin:10px;
+color:white;
+text-decoration:none;
+}
+
+.hero{
+text-align:center;
+padding:80px;
+background:linear-gradient(45deg,#ff7a18,#ffb347);
+color:white;
+}
+
+.hero button{
+padding:12px 30px;
+border:none;
+background:white;
+color:#ff7a18;
+font-size:18px;
+cursor:pointer;
+border-radius:8px;
+}
+
+#menu{
+padding:40px;
+text-align:center;
+}
+
+.menu-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.item{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.item button{
+background:#ff7a18;
+color:white;
+border:none;
+padding:8px 20px;
+border-radius:6px;
+cursor:pointer;
+}
+
+#cart{
+padding:40px;
+background:#fff;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+padding:20px;
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:#ff7a18;
+color:white;
+}
+let cart=[]
+let total=0
+
+function scrollToMenu(){
+document.getElementById("menu").scrollIntoView()
+}
+
+fetch("menu.json")
+.then(res=>res.json())
+.then(data=>{
+const container=document.getElementById("menu-container")
+
+data.forEach(item=>{
+
+const div=document.createElement("div")
+div.classList.add("item")
+
+div.innerHTML=`
+<h3>${item.name}</h3>
+<p>₹${item.price}</p>
+<button onclick="addToCart('${item.name}',${item.price})">Add</button>
+`
+
+container.appendChild(div)
+
+})
+
+})
+
+function addToCart(name,price){
+
+cart.push({name,price})
+total+=price
+
+const li=document.createElement("li")
+li.textContent=name+" - ₹"+price
+
+document.getElementById("cart-items").appendChild(li)
+
+document.getElementById("total").textContent=total
+
+}
+
+function placeOrder(){
+
+alert("Order placed! Call 9906627998 to confirm delivery.")
+
+}
+[
+{
+"name":"Chocolate Cake",
+"price":500
+},
+{
+"name":"Cream Pastry",
+"price":80
+},
+{
+"name":"Cupcake",
+"price":60
+},
+{
+"name":"Cookies",
+"price":120
+}
+]
